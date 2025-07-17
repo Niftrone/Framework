@@ -1,0 +1,43 @@
+body {
+    font-family: 굴림체
+}
+
+div.body{
+	overflow-y: auto;
+    scrollbar-face-color: #C9BFED;
+    scrollbar-shadow-color: #EDEDED;
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+
+tr.header{
+    background: #C9BFED;
+}
+
+tr.record{
+    background: #EDEDED;
+}
+
+.item-list{
+	display:flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 20px;
+	margin-top: 30px;
+}
+
+.item-card {
+  border: 6px solid #3399ff;
+  padding: 10px;
+  width: 180px;
+  text-align: center;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.item-card img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 5px;
+}

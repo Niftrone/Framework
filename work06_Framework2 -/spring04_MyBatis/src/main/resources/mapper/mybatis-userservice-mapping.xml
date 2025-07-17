@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="UserMapper">
+
+    <resultMap type="user" id="userSelectRM">
+        <result property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="password" column="password"/>
+        <result property="age" column="age"/>
+        <result property="grade" column="grade"/>
+        <result property="regDate" column="reg_date"/>
+    </resultMap>
+
+    <!-- 컬럼명과 VO 필드명이 다르면 as(별칭)을 사용 -->
+    <select id="getUserList" resultType="user">
+        SELECT user_id AS userId, user_name AS userName, password, age, grade, reg_date AS regDate
+        FROM users
+    </select>
+
+</mapper>

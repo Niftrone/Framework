@@ -1,0 +1,31 @@
+package com.service.spring.dao;
+
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.service.spring.domain.MyProduct;
+
+@Repository
+public class ProductDAO {
+	public static String NS = "ns.sql.ProductMapper.";
+	
+	@Autowired
+	private SqlSession sqlSession;
+	
+	public void addProduct(MyProduct product) {
+		sqlSession.insert(NS+"addProduct", product);
+	}
+	public List<MyProduct> findProductByName(String name) {
+		return sqlSession.selectList(NS+"findProductByName", name);
+	}
+	public List<MyProduct> findProductByMaker(String name) {
+		return sqlSession.selectList(NS+"findProductByMaker", name);
+	}
+	public List<MyProduct> findProducts() {
+		return sqlSession.selectList(NS+"findProducts");
+	}
+
+}

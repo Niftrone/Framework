@@ -1,0 +1,42 @@
+package com.service.spring.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.service.spring.dao.MyProductDAO;
+import com.service.spring.domain.MyProduct;
+import com.service.spring.service.MyProductService;
+
+@Controller
+public class MyProductController {
+	@Autowired
+	private MyProductService myProductService;
+	@Autowired
+	private MyProductDAO myProductDAO;
+	// 아랫부분에서 요청을 받아 처리하는 메소드 기능을 정의
+	@PostMapping("/insertProduct")
+	public ModelAndView addPorduct(MyProduct pvo) throws Exception{
+		System.out.println("MyProductController...addPorduct");
+		myProductDAO.addProduct(pvo);
+		return new ModelAndView("insert_result", "vo", pvo);
+	}
+	
+	@PostMapping("/findProduct")
+	public ModelAndView findProducts(@RequestParam String command, @RequestParam String word) throws Exception{
+		
+		List<MyProduct> result;
+		
+		if(command.equals("findProductByName")) {
+			result = myProductService.findProductByName(word);
+		} else if(command.equals("findProductByMaker")) {
+			result = myProductService.findProductByMaker(word);
+		}
+		
+		return new ModelAndView();
+	}
+}

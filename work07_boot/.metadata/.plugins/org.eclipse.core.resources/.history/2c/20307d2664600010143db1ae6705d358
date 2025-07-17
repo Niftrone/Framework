@@ -1,0 +1,27 @@
+body {
+    font-family: ����ü}
+
+div.body{
+	overflow-y: auto;
+    scrollbar-face-color: #C9BFED;
+    scrollbar-shadow-color: #EDEDED;
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+
+tr.header{
+    background: #C9BFED;
+}
+
+tr.record{
+    background: #EDEDED;
+}
+
+.item-card {
+	border: 6px solid #3399ff;
+	padding: 10px;
+	width: 600px;
+	text-align: center;
+	border-radius: 10px;
+	background-color: white;
+}

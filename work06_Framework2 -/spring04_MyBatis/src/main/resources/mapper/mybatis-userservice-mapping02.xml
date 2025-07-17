@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="UserMapper02">
+<!-- <select id="getUser" resultType="user">
+컬러명이랑 필드명이 다르면 vo에 안담긴다. 이럴때는 as를 이용해서  Alias를 사용
+select 
+user_id as userId,user_name as userName,password,age,grade,reg_date as regDate from users
+
+</select> -->
+<!-- <select id="getUser" parameterType="string" resultType="user">
+select 
+user_id as userId,user_name as userName,password,age,grade,reg_date as regDate 
+from users where user_id= #{value}
+
+</select>
+
+<select id="findUserId" parameterType="user" resultType="string">
+select 
+user_name from users 
+where user_id=#{userId} and password=#{password}
+
+</select> -->
+
+<select id="getUser01" parameterType="string" resultType="user" >
+	select 
+	user_id as userId,user_name as userName,password,age,grade,reg_date as regDate 
+	from users where user_id Like #{value}
+	</select>
+	
+	<select id="getUser02" parameterType="user" resultType="user" >
+	select 
+	user_id as userId,user_name as userName,password,age,grade,reg_date as regDate 
+	from users 
+	where user_id LIKE #{userId}
+	</select>
+	
+	
+	<select id="getUser03" parameterType="string" resultType="user">
+    select 
+       user_id as userId, user_name as userName, password, age, grade, reg_date as regDate
+    from users 
+    where user_id LIKE CONCAT(#{value}, '%')
+</select>
+	
+	<select id="getUser04" parameterType="user" resultType="user">
+    select 
+        user_id as userId, user_name as userName, password, age, grade, reg_date as regDate
+    from users 
+    where user_id LIKE CONCAT('%', #{userId})
+</select>
+
+</mapper>

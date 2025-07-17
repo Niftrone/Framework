@@ -1,0 +1,9 @@
+package com.service.spring.test;
+
+public class MyBatisJUitTest2 {
+	
+	@Test
+	public void unit() {
+		
+	}
+}

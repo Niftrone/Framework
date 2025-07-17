@@ -1,0 +1,23 @@
+package com.service.spring.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import jakarta.servlet.http.HttpServletRequest;
+
+@Controller
+public class FormController {
+
+	@PostMapping("/form")
+	public ModelAndView doForm(HttpServletRequest request) {
+		System.out.println("FormController.. doForm call");
+		//1 폼값 받아서
+		String userId = request.getParameter("userName");
+		String name = request.getParameter("userName");
+		String addr = request.getParameter("userName");
+		//2 pvo 생성
+		
+		//3 result.jsp 결과페이지로 네비게이션
+		// 이때 "info"라는 이름으로 pvo 정보 바인딩
+	}
+}

@@ -1,0 +1,9 @@
+package com.service.spring;
+
+import org.apache.ibatis.io.Resources;
+
+public class BookServiceUnitTest {
+	public static void main(String[] args) {
+		Reade r = Resources
+	}
+}

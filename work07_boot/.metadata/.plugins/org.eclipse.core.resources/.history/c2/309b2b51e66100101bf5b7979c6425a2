@@ -1,0 +1,24 @@
+package com.service.spring.model;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.service.spring.domain.User;
+
+@Repository
+public class MemberDAOImpl {
+	
+	public static final String NS = "ns.sql.UserMapper.";
+	
+	@Autowired
+	SqlSession sqlSession;
+	
+	public User login(User user) {
+		return sqlSession.selectOne(NS+"login", user);
+	}
+	
+	public User addUser(User user) {
+		return sqlSession.selectOne(NS+"addUser", user);
+	}
+}

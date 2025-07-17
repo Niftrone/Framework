@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<!-- 1. DB 정보를 읽어들이는 Properties 파일을 지정한다. -->
+<properties resource="config/dbconn.properties"/>
+
+<!-- 2. vo information wiring -->
+<typeAliases>
+	<typeAlias type="com.service.mybatis.vo.MySawon" alias="mySawon"/>
+</typeAliases>
+	
+<!-- 3. JDBC environment wiring 환경 구축 -->
+<environments default="aa">
+	<environment id="aa">
+		<transactionManager type="JDBC" />
+		<dataSource type="UNPOOLED"> <!--  DriverManager방식 EL 기법-->
+			<property name="driver" value="${jdbc.mysql.driver}"/>
+			<property name="url" value="${jdbc.mysql.url}"/>
+			<property name="username" value="${jdbc.mysql.username}"/>
+			<property name="password" value="${jdbc.mysql.password}"/>		
+		</dataSource>
+	</environment>
+</environments>
+
+<mappers>
+	<mapper resource="sql/mybatis-mysawon-mapping.xml" />
+</mappers>
+
+</configuration>

@@ -1,0 +1,26 @@
+package com.service.spring.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.service.spring.domain.Item;
+import com.service.spring.service.ItemCatalog;
+
+@Controller
+public class FruitsController {
+	
+	@Autowired
+	private ItemCatalog itemCatalog;
+
+	@GetMapping("/itemList")
+	public ModelAndView getItemList() {
+		
+		List<Item> item= itemCatalog.getItemList();
+		
+		return new ModelAndView();
+	}
+}

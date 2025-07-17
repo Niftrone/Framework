@@ -1,0 +1,31 @@
+package com.service.spring.test;
+
+import java.io.Reader;
+import java.util.List;
+
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
+import com.service.spring.domain.Item;
+
+public class DAOUnitTest2 {
+	public static void main(String[] ags) {
+		Reader reader = Resources.getResourceAsReader("config/SqlMapConfig.xml");
+		
+		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(reader);
+		
+		SqlSession session = factory.openSession();
+		List<Item> list = session.selectList("ns.sql.FruitMapper.getItemList");
+		
+		System.out.println("all Item :: ? ");
+		list.forEach(e -> System.out.println(e));
+		System.out.println();
+		
+		System.out.println("selected Item :: ? ");
+		String itemNum = "1111";
+		Item item = (Item)session.selectOne("ns.sql.FruitMapper.getItem", itemNum);
+		System.out.println(item);
+	}
+}

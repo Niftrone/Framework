@@ -1,0 +1,111 @@
+package com.service.spring.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import com.service.spring.domain.Member;
+import com.service.spring.model.MemberDAOImpl;
+import com.service.spring.model.MemberServiceImpl;
+
+import jakarta.servlet.http.HttpSession;
+
+@Controller
+public class MemberController {
+	
+	@Autowired
+	MemberDAOImpl memberDAOImpl;
+	
+	@Autowired
+	MemberServiceImpl memberServiceImpl;
+	
+	@GetMapping("/")
+	public String doIndex() {
+		return "redirect:/index.jsp";
+	}
+	
+	@GetMapping("/find")
+	public String getMember(String id, Model model) throws Exception {
+		Member rvo = memberServiceImpl.getMember(id);
+		String path = "find-falie";
+		if(rvo != null) {
+			model.addAttribute("vo",rvo);
+			model.addAttribute("message", "회원 발견 성공...");
+			path = "find_ok";
+		} else {
+			model.addAttribute("message", "회원 발견 실패...");
+		}
+		return path;
+	}
+	
+	@PostMapping("/register")
+	public String registerMember(Member pvo) {
+		int a = memberDAOImpl.registerMember(pvo);
+		System.out.println(a != 1 ? "회원가입 실패" : "회원가입 성공");
+		return "redirect:/index.jsp";
+	}
+	
+	@PostMapping("/login")
+	public String login(Member pvo, HttpSession session) {
+		System.out.println("login");
+		Member rvo = memberDAOImpl.login(pvo);
+		if(rvo == null) {
+			return "redirect:/index.jsp"; // 응답을 하고 다시 index.jsp파일로 요청
+		}
+		session.setAttribute("vo", rvo);
+		return "login_result"; // forward --> propertis파일의 jsp path정보가 앞뒤로 붙는다
+	}
+	
+	@GetMapping("/idExit")
+	public String idExit(String id, HttpSession session) {
+		Member rvo = memberDAOImpl.idExist(id);
+		if(rvo == null) {
+			return "redirect:/register";
+		}
+		System.out.println(rvo.getId());
+		session.setAttribute("userId", rvo.getId());
+		return "redirect:/register";
+	}
+//	@PostMapping("/login")
+//	public ModelAndView login(Member member, HttpSession session) {
+//		System.out.println("login");
+//		member = memberDAOImpl.login(member);
+//		session.setAttribute("vo", member);
+//		return new ModelAndView("login_result");
+//	}
+	
+	@PostMapping("/update")
+	public String updateMember(Member pvo, HttpSession session) {
+		memberDAOImpl.updateMember(pvo);
+		if(session.getAttribute("vo") == null) {
+			return null;
+		}
+		session.setAttribute("vo", pvo);
+		return "update_result";
+		
+	}
+	
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		if(session.getAttribute("vo") == null) {
+			return null;
+		}
+		session.invalidate();
+	    
+	    return "logout";
+	}
+	
+	@GetMapping("/showAll")
+	public String showAll(Model model) throws Exception {
+		System.out.println("showAll");
+		List<Member> list = memberServiceImpl.showAllMember();
+		model.addAttribute("list", list);
+		return "allView";
+	}
+	
+	
+}

@@ -1,0 +1,29 @@
+package com.service.mysawon.client;
+
+import java.io.IOException;
+import java.io.Reader;
+import java.util.List;
+
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
+public class MySawonClientTest2 {
+
+	public static void main(String[] args) throws IOException {
+		
+		//1. SqlMapConfig.xml을 읽어서 sqlseesionfactory 생성
+		Reader r = Resources.getResourceAsReader("config/SqlMapConfig.xml");
+		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(r);
+		
+		//2. sqlsession 커리문을 실행하는 기능
+		//int insert, delete, update |list select, selectOne
+		SqlSession session = factory.openSession();
+		
+		//3. sqlseeion 기능으로 selectList() 실행
+		session.selectList("SawonMapper.sawonList").forEach(c->System.out.println(c));
+
+	}
+
+}

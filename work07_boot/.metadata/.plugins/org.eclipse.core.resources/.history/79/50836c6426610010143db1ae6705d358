@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- SQL definition -->
+<mapper namespace="ns.sql.MemberMapper">
+	<!-- 컬럼명이랑 필드명이 다르면 user 안담긴다...AS를 이용해서 Alias를 사용 -->
+	<sql id="select-member">
+		SELECT id, password, name, address
+		FROM member
+	</sql>
+	
+	<insert id="registerMember" parameterType="member">
+		INSERT INTO member(id, password, name, address)
+		VALUES (#{id}, #{password}, #{name}, #{address})
+	</insert>
+	
+	<delete id="deleteMember" parameterType="string">
+		DELETE FROM member
+		WHERE id = #{id}
+	</delete>
+	
+	<update id="updateMember" parameterType="member">
+		UPDATE member
+		SET password = #{password}, address = #{address}
+		WHERE id = #{id}
+	</update>
+	
+	<select id="showAllMember" resultType="member">
+		<include refid="select-member"></include>
+	</select>
+
+	<select id="getMember" parameterType="string" resultType="member">
+		<include refid="select-member"></include>
+		WHERE id = #{id}
+	</select>
+	
+	<select id="idExist" parameterType="string" resultType="string">
+		SELECT id FROM member
+		WHERE id = #{id}
+	</select>
+
+	<select id="login" parameterType="map" resultType="member">
+		<include refid="select-member"></include>
+		WHERE id = #{id} AND password = #{password}
+	</select>
+</mapper>
+
+
+

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ns.sql.BookMapper">
+	<sql id="select-book">
+		SELECT isbn, title, catalogue, nation, publish_date, 
+		publisher, author, price, currency, description 
+		FROM book
+	</sql>
+	<insert id="insertBook" parameterType="book">	
+		INSERT INTO book (isbn, title, catalogue, nation, publish_date, 
+                      publisher, author, price, currency, description)
+		VALUES(#{isbn}, #{title}, #{catalogue}, #{nation}, #{publish_date}, 
+		#{publisher}, #{author}, #{price}, #{currency}, #{description})
+	</insert>
+	
+	<select id="getBooks" parameterType="book">	
+		<include refid="select-book"></include>	
+	</select>
+	
+	<select id="searchByTitle" resultType="book" parameterType="string">
+		<include refid="select-book"></include>	
+		WHERE title = #{title}		
+	</select>
+	
+	<select id="searchByPublisher" resultType="book" parameterType="string">		
+		<include refid="select-book"></include>
+		WHERE publisher = #{publisher}	
+	</select>
+	
+	<!-- 특정 가격 이상인 책만 검색 -->
+	<select id="searchByPrice" resultType="book" parameterType="int">    
+		<include refid="select-book"></include>	 
+		 WHERE price &gt;= #{price}
+    </select>
+	
+	<select id="searchByIsbn" resultType="book" parameterType="string">	
+		<include refid="select-book"></include>	
+		WHERE isbn = #{isbn}
+	</select>
+	
+	<delete id="delete" parameterType="string">	
+		DELETE FROM book
+		WHERE isbn = #{isbn}	
+	</delete>
+	
+	<select id="getIsbn" resultType="string" parameterType="string">	
+		SELECT isbn		
+		FROM book
+		WHERE 
+	</select>
+	
+	<!--  특정 isbn에 해당하는 Book의 title,author, description 정보 수정하기 -->
+	<update id="update">	
+		
+	</update>
+</mapper>
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

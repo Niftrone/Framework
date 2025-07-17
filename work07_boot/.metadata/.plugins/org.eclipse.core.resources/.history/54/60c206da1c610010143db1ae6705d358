@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- SQL definition -->
+<mapper namespace="ns.sql.ProductMapper">
+	<!-- 컬럼명이랑 필드명이 다르면 user 안담긴다...AS를 이용해서 Alias를 사용 -->
+	<insert id="addProduct" parameterType="myProduct">
+		INSERT INTO myproduct (id, name, maker, price)
+		VALUES(#{id}, #{name}, #{maker}, #{price})
+	</insert>
+
+	<sql id="select-myproduct">
+		SELECT id, name, maker, price
+		FROM myproduct
+	</sql>
+	
+	<!-- 하나의 select 쿼리로 3가지 동작을 할수있는 동적 쿼리 -->
+	
+	<select id="findProducts" resultType="myProduct" parameterType="hashmap">
+		<include refid="select-myproduct"></include>
+		<where>
+			<choose>
+				<when test="command == findProductByName">
+					name LIKE concat("%", #{name}, "%")
+				</when>
+				<when test="command == findProductByMaker">
+					maker = #{maker}
+				</when>
+				<otherwise>
+				
+				</otherwise>
+			</choose>
+		</where>
+	</select>
+	
+	
+	<!-- vo로 이용한 서칭 -->
+<!-- 	<select id="findProducts" resultType="myProduct" parameterType="myProduct">
+		<include refid="select-myproduct"></include>
+		<where>
+			<choose>
+				<when test="name != null and name != ''">
+					name LIKE concat("%", #{name}, "%")
+				</when>
+				<when test="maker != null and maker != ''">
+					maker = #{maker}
+				</when>
+				<otherwise>
+				
+				</otherwise>
+			</choose>
+		</where>
+	</select> -->
+	
+<!-- 	<select id="findProductByName" parameterType="string"
+		resultType="myProduct">
+		<include refid="select-myproduct"></include>
+		WHERE name LIKE concat("%", #{name}, "%")
+	</select>
+
+	<select id="findProductByMaker" parameterType="string"
+		resultType="myProduct">
+		<include refid="select-myproduct"></include>
+		WHERE maker = #{maker}
+	</select>
+
+	<select id="findProducts" parameterType="string"
+		resultType="myProduct">
+		<include refid="select-myproduct"></include>
+	</select> -->
+
+</mapper>
+
+
+

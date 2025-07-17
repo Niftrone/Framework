@@ -1,0 +1,31 @@
+package com.service.spring.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.service.spring.domain.Book;
+import com.service.spring.service.BookService;
+
+@RestController
+public class AsyncController {
+	
+	@Autowired
+	private BookService bookService;
+	
+	@GetMapping("bookAjax")
+	public ResponseEntity<?> bookAjax(String isbn) {
+		Book book = null;
+		System.out.println("bookAjax");
+		try {
+			book = bookService.getIsbn(isbn);
+			return ResponseEntity.ok(bookService.getIsbn(isbn));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+}

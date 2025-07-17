@@ -1,0 +1,48 @@
+package com.service.spring;
+
+import java.io.IOException;
+import java.io.Reader;
+import java.util.List;
+
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
+import com.service.spring.domain.Member;
+
+public class MyBatisMemberTestApp {
+	public static void main(String[] args) throws IOException {
+		Reader r = Resources.getResourceAsReader("config/SqlMapConfig.xml");
+		
+		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(r);
+		
+		SqlSession sqlSession = factory.openSession();
+		String NS = "ns.sql.MemberMapper.";
+		Member m = new Member("asd", "123asd", "이우진", "경기도");
+		Member me = new Member("abc", "dsax", "이우진", "경상도");
+		sqlSession.insert(NS+"registerMember", me);
+		int a = sqlSession.insert(NS+"registerMember", m);
+		System.out.println(a != 1 ? "삽입 실패" : "삽입 성공");
+		
+		a = sqlSession.delete(NS+"deleteMember", "asd");
+		System.out.println(a != 1 ? "삭제 실패" : "삭제 성공");
+		
+		Member me2 = new Member("abc", "1234", "이우진", "서울");
+		a = sqlSession.update(NS+"updateMember", "abc");
+		System.out.println(a != 1 ? "업데이트 실패" : "업데이트 성공");
+		
+		List<Member> list = sqlSession.selectList(NS+"showAllMember");
+		list.forEach(e -> System.out.println(e));
+		
+		Member me3 = sqlSession.selectOne(NS+"getMember", "abc");
+		System.out.println("\n" + me3);
+		
+		String me4 = sqlSession.selectOne(NS+"idExist", "abc");
+		System.out.println("\n" + me4);
+		
+		Map<String, String> map = new HashMap<>();
+		Member me5 = sqlSession.selectOne(NS+"login", );
+		
+	}
+}

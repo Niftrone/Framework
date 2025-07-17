@@ -1,0 +1,17 @@
+package com.service.spring.model;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.service.spring.domain.Member;
+
+@Repository
+public class MemberDAOImpl {
+	@Autowired
+	private SqlSession sqlSession;
+	
+	public void registerMember(Member member) {
+		sqlSession.insert(member);
+	}
+}

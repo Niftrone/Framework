@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<!-- db 정보(sql 정보) wiring(엮다)-->
+<properties resource="config/dbconn.properties"/>
+
+<!-- 오라클일떄는 null 값을 허용하지 않음 그래서 허용하는 옵션을 이부분에 지정해야한다. 
+Mysql인 부분 null을 허용하는 부분이 이미 내포되어 있다. 
+-->
+<!-- <settings>
+<setting name="jdbcTypeForNULL" value="NULL"/>
+</settings> -->
+
+
+<!-- vo 정보 wiring(엮다)-->
+<typeAliases>
+	<typeAlias type="mybatis.services.domain.User" alias="user"/>
+</typeAliases>
+
+
+	<!-- jdbc 환경 구축 -->
+	<environments default="aa">
+	<environment id="aa">
+		<transactionManager type="JDBC" />
+		<dataSource type="UNPOOLED"> <!--  DriverManager방식 -->
+			<property name="driver" value="${jdbc.mysql.driver}"/>
+			<property name="url" value="${jdbc.mysql.url}"/>
+			<property name="username" value="${jdbc.mysql.username}"/>
+			<property name="password" value="${jdbc.mysql.password}"/>		
+		</dataSource>
+	</environment>
+</environments>
+	
+	
+		<!--  -->
+<mappers>
+	<mapper resource="mapper/mybatis-userservice-mapping.xml"/>
+		<mapper resource="mapper/mybatis-userservice-mapping01.xml"/>
+		<mapper resource="mapper/mybatis-userservice-mapping02.xml"/>
+		<mapper resource="mapper/mybatis-userservice-mapping03.xml"/>
+		<mapper resource="mapper/mybatis-userservice-mapping05.xml"/>
+		<mapper resource="mapper/mybatis-userservice-mapping07.xml"/>
+		<mapper resource="mapper/mybatis-userservice-mapping08.xml"/>
+		<mapper resource="mapper/mybatis-userservice-mapping10.xml"/>
+</mappers>
+	
+	
+</configuration>

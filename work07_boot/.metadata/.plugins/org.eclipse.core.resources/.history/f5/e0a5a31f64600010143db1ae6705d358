@@ -1,0 +1,25 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/shopping3-2.css">
+<body>
+	<div class="view-container">
+		<div class="view-card">
+			<div class="view-image">
+				<img src="${item.url}" alt="${item.itemName}">
+			</div>
+			<div class="view-info">
+				<h2>${item.itemName}</h2>
+				<p>가격: ${item.price}원</p>
+				<p>설명: ${item.description}</p>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+package com.service.spring.test;
+
+import java.io.Reader;
+import java.util.List;
+
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
+import com.service.spring.domain.MyProduct;
+
+public class MyBatisUnitTest { 
+	public static void main(String[] args)throws Exception {
+		Reader r=Resources.getResourceAsReader("config/SqlMapConfig.xml");
+		
+		SqlSessionFactory factory=new SqlSessionFactoryBuilder().build(r);
+		
+		SqlSession session=factory.openSession();
+		
+		//~mapping.xml의 쿼리문이 잘 작성되었는지는 
+		//session 함수를 호출해서 확인.
+		
+		MyProduct myProduct = new MyProduct(1, "가전선풍기", "LG", 45000);
+		int result = session.insert("ns.sql.ProductMapper.addProduct", myProduct);
+		System.out.println(result != 1 ? "삽입 실패" : "삽입 성공");
+		
+		List<MyProduct> prdouct1 = session.selectList("ns.sql.ProductMapper.findProductByName","선풍기");
+		System.out.println("=== findProductByName ===");
+		prdouct1.forEach(e -> System.out.println(e));
+		
+		List<MyProduct> prdouct2 = session.selectList("ns.sql.ProductMapper.findProductByMaker","LG");
+		System.out.println("=== findProductByName ===");
+		prdouct2.forEach(e -> System.out.println(e));
+		
+		List<MyProduct> prdouct3 = session.selectList("ns.sql.ProductMapper.findProducts");
+		System.out.println("=== findProductByName ===");
+		prdouct3.forEach(e -> System.out.println(e));
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

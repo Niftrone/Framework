@@ -1,0 +1,29 @@
+package com.service.spring.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.service.spring.dao.MyProductDAO;
+import com.service.spring.domain.MyProduct;
+
+@Service
+public class MyProductService {
+	@Autowired
+	MyProductDAO productDAO;
+	
+//	public void addProduct(MyProduct product) {
+//		productDAO.addProduct(product);
+//	}
+	
+	public List<MyProduct> findProductByName(String name) {
+		return productDAO.findProductByName(name);
+	}
+	public List<MyProduct> findProductByMaker(String maker) {
+		return productDAO.findProductByMaker(maker);
+	}
+	public List<MyProduct> findProducts() {
+		return productDAO.findProducts();
+	}
+}

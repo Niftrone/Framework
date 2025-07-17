@@ -1,0 +1,11 @@
+package util;
+
+//SqlSessionFactory를 반환받는 코드...
+public class FactoryService {
+	private static FactoryService factory = null;
+	try {
+		
+	}catch(Exception){
+		
+	}
+}

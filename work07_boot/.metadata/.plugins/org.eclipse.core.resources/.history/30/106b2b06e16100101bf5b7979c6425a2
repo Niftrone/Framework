@@ -1,0 +1,8 @@
+package com.service.spring;
+
+
+public class BookServiceUnitTest {
+	public static void main(String[] args) {
+		Reade r = Resources
+	}
+}

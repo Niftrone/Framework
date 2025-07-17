@@ -1,0 +1,30 @@
+package com.service.spring.model;
+
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.service.spring.domain.Member;
+
+@Repository
+public class MemberDAOImpl {
+	
+	public static final String NS = "ns.sql.MemberMapper.";
+	@Autowired
+	private SqlSession sqlSession;
+	
+	public void registerMember(Member member) {
+		sqlSession.insert(NS+"registerMember" , member);
+	}
+	public void deleteMember(String id) {
+		sqlSession.delete(NS+"deleteMember" , id);
+	}
+	public void updateMember(Member member) {
+		sqlSession.update(NS+"updateMember" , member);
+	}
+	public List<Member> showAllMember() {
+		sqlSession.selectList(NS+"showAllMember");
+	}
+}

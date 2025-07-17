@@ -1,0 +1,31 @@
+package com.service.spring.contorller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import jakarta.servlet.http.HttpServletRequest;
+
+@Controller
+public class IndexController {
+	
+//	@GetMapping("/index")
+//	public ModelAndView doIndex(HttpServletRequest request) {
+//		System.out.println("doIndex....");
+//		return new ModelAndView("result", "message", "Hello SpringBoot");
+//	}
+	@GetMapping("/index")
+	public String doIndex(Model model) {
+		System.out.println("doIndex....");
+		request.setAttribute("message", "Hello SpringBoot");
+		return "result";
+	}
+	
+	@GetMapping("/home")
+	public ModelAndView getHome() {
+		System.out.println("IndexController 진입 getHome 호출됨");
+		// request.setAttribute("info", "Home Spring Boot!!");
+		// RequestorType ... 이 자동으로 실행 되어서 바인딩이 되어있음
+		return new ModelAndView("result2", "info", "Home Spring Boot!!");
+	}
+}

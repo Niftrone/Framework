@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;boot02_SpringMVC/src/main/webapp/WEB-INFO&apos; to &apos;WEB-INF&apos;" description="Rename resource &apos;WEB-INFO&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/main/webapp/WEB-INFO" name="WEB-INF" stamp="1752451996387" updateReferences="true"/>
+</session>

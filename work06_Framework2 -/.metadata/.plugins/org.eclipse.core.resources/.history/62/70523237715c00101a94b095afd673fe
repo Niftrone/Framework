@@ -1,0 +1,17 @@
+package com.service.mysawon.client;
+
+import com.service.mybatis.vo.MySawon;
+
+public class MySawonClientTest1 {
+
+	public static void main(String[] args) {
+		//사원 추가로직을 작성
+		// 1. 폼에서 정보를 입력받아야하는데.. 그냥
+		MySawon pvo = new MySawon();
+		pvo.setId("kosa");
+		pvo.setPwd("kosa");
+		pvo.setId("kosa");
+		pvo.setId("kosa");
+	}
+
+}

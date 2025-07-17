@@ -1,0 +1,27 @@
+package com.service.mysawon.client;
+
+import java.io.IOException;
+import java.io.Reader;
+
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
+import com.service.mybatis.vo.MySawon;
+
+public class MySawonClientTest1 {
+
+	public static void main(String[] args) throws IOException {
+		//사원 추가로직을 작성
+		// 1. 폼에서 정보를 입력받아야하는데.. 그냥
+		MySawon pvo = new MySawon();
+		pvo.setId("kosa");
+		pvo.setPwd("123");
+		pvo.setName("홍길동");
+		pvo.setAge(26);
+		
+		//1. SqlMapConfig.xml을 읽어서 sqlseesionfactory 생성
+		Reader r = Resources.getResourceAsReader("config/SqlMapConfig.xml");
+		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(r);
+	}
+
+}

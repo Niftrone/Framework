@@ -1,0 +1,41 @@
+package com.service.mysawon.client;
+
+import java.io.IOException;
+import java.io.Reader;
+
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
+import com.service.mybatis.vo.MySawon;
+
+import util.FactoryService;
+
+public class MySawonClientTest4 {
+
+	public static void main(String[] args) throws IOException {
+		
+		SqlSessionFactory factory = FactoryService.getFactory();
+		
+		//사원 추가로직을 작성
+		// 1. 폼에서 정보를 입력받아야하는데.. 그냥
+		MySawon pvo = new MySawon();
+		pvo.setNum(2);
+		pvo.setId("myBatiss");
+		pvo.setPwd("0071");
+		pvo.setName("Tomas");
+		pvo.setAge(33);
+		
+		//2. sqlsession 커리문을 실행하는 기능
+		// insert, delete, update | select, selectOne
+		SqlSession session = factory.openSession();
+		
+		int row = session.insert("SawonMapper.sawonUpdate", pvo);
+		System.out.println(row != 1 ? "실패" : "성공");
+		
+		session.commit();
+		session.close();
+	}
+
+}

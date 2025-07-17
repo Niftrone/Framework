@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="UserMapper01">
+<!--parameterType 과 resultType 이 다른 것을 파악하자-->
+<!-- <select id="getUser" resultType="user">
+컬러명이랑 필드명이 다르면 vo에 안담긴다. 이럴때는 as를 이용해서  Alias를 사용
+select 
+user_id as userId,user_name as userName,password,age,grade,reg_date as regDate from users
+
+</select> -->
+<select id="getUser" parameterType="string" resultType="user">
+select 
+user_id as userId,user_name as userName,password,age,grade,reg_date as regDate from users where user_id= #{value}
+
+</select>
+
+<!--
+아이디가 03이고 패스워드가 user03 인 사람의 이름을 찾자느거
+
+
+  -->
+<select id="findUserId" parameterType="user" resultType="string">
+select 
+user_name from users 
+where user_id=#{userId} and password=#{password}
+
+</select>
+
+</mapper>

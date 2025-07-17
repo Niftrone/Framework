@@ -1,0 +1,11 @@
+package com.service.spring.test;
+
+import org.junit.jupiter.api.Test;
+
+public class MyBatisJUitTest2 {
+	
+	@Test
+	public void unit() {
+		
+	}
+}

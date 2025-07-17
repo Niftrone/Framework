@@ -1,0 +1,8 @@
+package com.service.spring.dao.impl;
+
+import org.apache.ibatis.session.SqlSession;
+
+public class ItemDAOImpl {
+	public static final String NS = "ns.sql.FruitMapper.";
+	private SqlSession sqlSession;
+}

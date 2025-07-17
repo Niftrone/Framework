@@ -1,0 +1,45 @@
+package com.service.spring.model;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+
+import com.service.spring.domain.Member;
+
+@Service
+public class MemberServiceImpl {
+
+	@Autowired
+	private MemberDAOImpl memberDAOImpl;
+
+	public void registerMember(Member member) {
+		memberDAOImpl.registerMember(member);
+	}
+
+	public void deleteMember(String id) {
+		memberDAOImpl.deleteMember(id);
+	}
+
+	public void updateMember(Member member) {
+		memberDAOImpl.updateMember(member);
+	}
+
+	public List<Member> showAllMember() {
+		return memberDAOImpl.showAllMember();
+	}
+
+	public Member getMember(String id) {
+		return memberDAOImpl.getMember(id);
+	}
+
+	public Member idExist(String id) {
+		return memberDAOImpl.idExist(id);
+	}
+	public Member login(Map<String, String> map) {
+		return memberDAOImpl.login(map);
+	}
+}

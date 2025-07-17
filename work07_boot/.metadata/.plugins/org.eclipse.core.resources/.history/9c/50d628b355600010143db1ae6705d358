@@ -1,0 +1,5 @@
+spring.application.name=boot04_Furits
+server.port=9000
+
+spring.mvc.view.prefix=/WEB-INF/views/
+spring.mvc.view.suffix=.jsp

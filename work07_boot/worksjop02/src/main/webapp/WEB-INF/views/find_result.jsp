@@ -1,0 +1,57 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	table {
+	    width: 80%;
+	    margin: 40px auto;
+	    border-collapse: collapse;
+	    font-family: 'Segoe UI', sans-serif;
+	    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+	}
+	
+	thead {
+	    background-color: #f2f2f2;
+	}
+	
+	th, td {
+	    border: 1px solid #ddd;
+	    padding: 12px 16px;
+	    text-align: center;
+	    font-size: 15px;
+	}
+	
+	th {
+	    font-weight: 600;
+	    color: #333;
+	}
+
+</style>
+</head>
+<body>
+	<table>
+		<thead>
+			<tr>
+				<th>상품명</th>
+				<th>제조사</th>
+				<th>가격</th>	
+			</tr>		
+		</thead>
+		<tbody>
+			<c:forEach items="${find_list}" var="item">
+				<tr>
+					<td>${item.name}</td>
+					<td>${item.maker}</td>
+					<td>${item.price}</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
+	<a href="myProduct.html">INDEX</a>
+</body>
+</html>

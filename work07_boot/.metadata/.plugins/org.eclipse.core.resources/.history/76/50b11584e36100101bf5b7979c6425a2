@@ -1,0 +1,33 @@
+package com.service.spring;
+
+import java.io.IOException;
+import java.io.Reader;
+
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
+import com.service.spring.domain.Book;
+
+public class BookServiceUnitTest {
+	public static void main(String[] args) throws IOException {
+		
+		Reader r = Resources.getResourceAsReader("config/SqlMapConfig.xml");
+		
+		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(r);
+		
+		SqlSession sqlSession = factory.openSession();
+		
+		String NS = "ns.sql.BookMapper.";
+		
+		Book book1 = new Book("1234-123-123", "Java Programming", "Programming", "USA", "2023-04-01", "Pearson", "John Doe", 5000, "A comprehensive guide to Java programming.");
+		Book book2 = new Book("8654-234-155", "Mastering Python", "Programming", "UK", "2022-08-15", "O'Reilly", "Jane Smith", 4500, "A deep dive into Python for advanced developers.");
+		
+		int a = sqlSession.insert(NS+"insertBook", book1);
+		sqlSession.insert(NS+"insertBook", book2);
+		System.out.println(a != 1 ? "삽입 실패" : "삽입 성공");
+		
+		List<Book> list = sqlSession.selectList(NS+"getBooks");
+	}
+}

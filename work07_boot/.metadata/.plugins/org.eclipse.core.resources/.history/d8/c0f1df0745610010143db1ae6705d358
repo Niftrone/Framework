@@ -1,0 +1,81 @@
+package com.service.spring.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.service.spring.domain.Member;
+import com.service.spring.model.MemberDAOImpl;
+import com.service.spring.model.MemberServiceImpl;
+
+import jakarta.servlet.http.HttpSession;
+
+@Controller
+public class MemberController {
+	
+	@Autowired
+	MemberDAOImpl memberDAOImpl;
+	
+	@Autowired
+	MemberServiceImpl memberServiceImpl;
+	
+	private static List<Member> list = null;
+	
+	@PostMapping("find")
+	public ModelAndView getMember(String id) throws Exception {
+		Member member = memberServiceImpl.getMember(id);
+		return new ModelAndView("find_ok", "vo", member);
+	}
+	
+	@PostMapping("/register")
+	public ModelAndView registerMember(Member member) {
+		System.out.println("registerMember");
+		int a =memberDAOImpl.registerMember(member);
+		System.out.println(a != 1 ? "회원가입 실패" : "회원가입 성공");
+		return new ModelAndView("redirect:/index.jsp");
+	}
+	
+	@PostMapping("/login")
+	public String login(Member pvo, HttpSession session) {
+		System.out.println("login");
+		Member rvo = memberDAOImpl.login(rvo);
+		session.setAttribute("vo", member);
+		return new ModelAndView("login_result");
+	}
+//	@PostMapping("/login")
+//	public ModelAndView login(Member member, HttpSession session) {
+//		System.out.println("login");
+//		member = memberDAOImpl.login(member);
+//		session.setAttribute("vo", member);
+//		return new ModelAndView("login_result");
+//	}
+	
+	@PostMapping("/update")
+	public ModelAndView updateMember(Member member) {
+		memberDAOImpl.updateMember(member);
+		return new ModelAndView("update_result", "vo", member);
+	}
+	
+	@GetMapping("/logout")
+	public ModelAndView logout(HttpSession session) {
+		if(session.getAttribute("vo") == null) {
+			return new ModelAndView();
+		}
+		session.invalidate();
+	    
+	    return new ModelAndView("redirect:/index.jsp");
+	}
+	
+	@GetMapping("/showAll")
+	public ModelAndView showAll(HttpSession session) {
+		System.out.println("showAll");
+		list = memberDAOImpl.showAllMember();
+		return new ModelAndView("allView", "list", list);
+	}
+	
+	
+}

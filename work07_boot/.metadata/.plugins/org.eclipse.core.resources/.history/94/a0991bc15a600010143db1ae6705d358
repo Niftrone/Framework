@@ -1,0 +1,10 @@
+package com.service.spring.service;
+
+/*
+ * Service Layer 빈
+ * 해당 레이어는 raw 데이터를 가져와서 다시 가공해서 전해주는 기능
+ * */
+
+public class ItemCatalog {
+
+}

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 
+1. ResultMap 사용법
+
+	컬럼 Alias :: 디비 컬럼명과 자바 필드명이 다를 떄... 사용하였다.
+	주로 SELECT 문에서 사용된다.
+	왜 SELECT문에서만 쓰냐면, SELECT문을 도는 함수(getlist, getuser) 와 같은 경우에만 
+	SELECT 쿼리만 필요하고 이럴 때면 resultType이 필요하다.(resultType = "string" | "user" | "user"
+	ResultMap을 사용하게 되면 컬럼 Alias 를 쓰지 않을 수 있다.
+	
+	컬럼 Alias :: 이 부분을 사용하지 않을려면 ResultMap을 한번 지정하면 된다.
+	<resultMap type="user" id=""> 에서 type은 무조건 vo이고, setter하려고 할 때 사용한다.
+
+2. Dynamic Query
+   SQL Query 문의 대부분은 90%이상이 SELECT 문이다.
+   왜? 90% 이상을 차지해? 
+   - 조건절 때문이다. WHERE 절
+   static Query(정적 쿼리문)
+   SELECT * FROM users WHERE name='홍길동';
+   SELECT * FROM users WHERE age = 30;
+   SELECT * FROM users WHERE name = '홍길동' AND age=30;
+   
+   Dynamic Query(동적 쿼리문)
+    - Dynamic Query 는 하나만 만드는데도 이 모든걸 포함할 수 있는 것.
+    - SELECT * FROM users ? :::: 위 정적 쿼리 4개 이상을 다 포괄할 수 있다.
+   DML
+      1) INSERT
+      2) DELETE
+      3) UPDATE
+   4) SELECT
+   
+
+ -->
+<mapper namespace="UserMapper07">
+
+ <resultMap type="user" id="userSelectRM">
+    <result property="userId" column="user_id"/>
+    <result property="userName" column="user_name"/>
+    <result property="password" column="password"/>
+    <result property="age" column="age"/>
+    <result property="grade" column="grade"/>
+     <result property="regDate" column="reg_date"/>
+</resultMap>
+
+<!--  static query -->
+<select id="getUserList01" parameterType="user" resultMap="userSelectRM">
+ SELECT
+ 	user_id, user_name, password, age, reg_date
+ FROM users
+ WHERE password = #{password}
+</select>
+
+<!--  dynamic query -->
+<select id="getUserList" parameterType="user" resultMap="userSelectRM">
+ SELECT
+ 	user_id, user_name, password, age, reg_date
+ FROM users
+ <where>
+ 	<if test="userName != null">
+ 		user_name LIKE #{userName}
+ 	</if>
+ 	<if test="age != null">
+ 		OR age LIKE #{age}
+ 	</if>
+ </where>
+ 	ORDER BY user_id DESC
+ </select>
+</mapper>
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

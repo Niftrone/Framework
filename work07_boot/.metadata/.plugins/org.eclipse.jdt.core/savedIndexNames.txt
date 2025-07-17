@@ -1,0 +1,13 @@
+INDEX VERSION 1.134+C:\KosaEdu\work07_boot\.metadata\.plugins\org.eclipse.jdt.core
+3761829256.index
+2128281001.index
+208243085.index
+3268771342.index
+3411609009.index
+2573337440.index
+2055601760.index
+3435868925.index
+2545506460.index
+2181068255.index
+1865797976.index
+3770574858.index
