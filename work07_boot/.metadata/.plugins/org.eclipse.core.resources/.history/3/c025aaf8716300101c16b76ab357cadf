@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ns.sql.PhoneMapper">
+
+	<resultMap type="phone" id="phoneListRM">
+		<id property="num" column="num"/>
+		<result property="model" column="model"/>
+		<result property="price" column="price"/>
+		<association property="company" javaType="company">
+			<id property="vcode" column="vcode"/>
+			<id property="vrendor" column="vrendor"/>
+		</association>
+	</resultMap>
+	
+	<insert id="insert" parameterType="phone">
+		INSERT INTO phone (num, model, price, vcode)
+		VALUES(#{num}, #{model}, #{price}, #{company.vcode})
+	</insert>
+	
+	<!-- foreach -->
+	<delete id="delete" parameterType="string">
+		<foreach collection="">
+		</foreach>
+		DELETE FROM phone
+		WHERE num = #{num}
+	</delete>
+	
+	<update id="update" parameterType="phone">
+		UPDATE phone
+		SET model = #{model}, price = #{price}, vcode = #{company.vcode}
+		WHERE num = #{num}
+	</update>
+	
+	<!-- 동적쿼리 모든폰 조회하기 + 특정 폰 조회하기 :: select one | select all -->
+	<select id="select" parameterType="phone" resultMap="phoneListRM">
+		SELECT num, model, price, vcode
+		FROM phone
+		<if test="num != null"></if>
+	</select>
+	
+	<!-- 로그인 + 특정고객 찾기 -->
+	<select id="selectUser" parameterType="userInfo" resultType="userInfo">
+		SELECT id, pw
+		FROM userinfo
+		WHERE id = #{id} 
+		<if test="pw != null">
+			AND pw = #{pw}
+		</if>
+	</select>
+
+
+	
+</mapper>
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

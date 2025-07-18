@@ -1,0 +1,13 @@
+package com.service.spring.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+//presentation layer
+//결과페이즈를 응답하는 컨트롤러...SSR...jsp사용...검색용이...SEO search engine optimizer
+@Controller
+public class PhoneController {
+	
+	@GetMapping()
+	
+}

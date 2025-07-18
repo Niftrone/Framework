@@ -1,0 +1,9 @@
+package com.service.spring.dao;
+
+import org.springframework.stereotype.Repository;
+
+//Persistence Layer
+@Repository
+public class PhoneDAO {
+
+}

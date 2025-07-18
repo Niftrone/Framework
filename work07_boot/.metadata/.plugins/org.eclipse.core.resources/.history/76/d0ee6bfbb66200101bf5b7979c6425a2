@@ -1,0 +1,29 @@
+package com.service.spring.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import com.service.spring.domain.Member;
+import com.service.spring.service.MemberService;
+
+import jakarta.servlet.http.HttpSession;
+
+@Controller
+public class MemberController {
+	
+	@Autowired
+	private MemberService memberService;
+	
+	@PostMapping("/login")
+	public String doLogin(Member pvo, HttpSession session) {
+		try {
+			memberService.selectUser(pvo);
+		} catch() {
+			
+		}
+		
+		
+		return "";
+	}
+}

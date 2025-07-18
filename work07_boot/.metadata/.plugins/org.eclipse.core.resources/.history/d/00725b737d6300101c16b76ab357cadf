@@ -1,0 +1,38 @@
+package com.service.spring.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import com.service.spring.service.PhoneService;
+
+//presentation layer
+//결과페이즈를 응답하는 컨트롤러...SSR...jsp사용...검색용이...SEO search engine optimizer
+@Controller
+public class PhoneController {
+	
+	@Autowired
+	private PhoneService service;
+	
+	//인트로 페이지로부터 요청
+	@GetMapping("/")// http/localhost:9000/
+	public String home() {
+		return "redirect:/index.jsp";
+	}
+	
+	@GetMapping("regPhone")
+	public String getRegPhone() {
+		return "PhoneReg";
+	}
+	
+	@GetMapping("searchPhone")
+	public String searchPhone() {
+		return "PhoneList";
+	}
+	
+	@GetMapping("login")
+	public String getLogin() {
+		return "Login";
+	}
+	
+}

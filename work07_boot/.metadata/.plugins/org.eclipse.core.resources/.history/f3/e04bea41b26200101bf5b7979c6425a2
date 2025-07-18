@@ -1,0 +1,54 @@
+package com.service.spring.dao;
+
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.service.spring.domain.Board;
+
+@Repository
+public class BoardDAO {
+	
+	public static final String NS = "ns.sql.BoardMapper.";
+	
+	@Autowired
+	private SqlSession sqlSession;
+	
+	public int write(Board vo) {
+		System.out.println("BoardDAO...write");
+		return sqlSession.insert(NS+"write", vo);
+	}
+	
+	public int selectByNoForDate(int no) {
+		System.out.println("BoardDAO...selectByNoForDate");
+		return sqlSession.insert(NS+"selectByNoForDate", no);
+	}
+	
+	public List<Board> getBoardList() {
+		System.out.println("BoardDAO...getBoardList");
+		return sqlSession.selectList(NS+"getBoardList");
+	}
+	
+	public Board showContent(int no) {
+		System.out.println("BoardDAO...showContent");
+		return sqlSession.selectOne(NS+"showContent", no);
+	}
+	
+	public int deleteBoard(int no) {
+		System.out.println("BoardDAO...deleteBoard");
+		return sqlSession.delete(NS+"deleteBoard", no);
+	}
+	
+	public int updateBoard(Board vo) {
+		System.out.println("BoardDAO...updateBoard");
+		return sqlSession.update(NS+"updateBoard", vo);
+	}
+	
+	public int updateCount(int no) {
+		System.out.println("BoardDAO...updateCount");
+		return sqlSession.update(NS+"updateCount", no);
+	}
+	
+}

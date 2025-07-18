@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ns.sql.PhoneMapper">
+	<select id="getUser" parameterType="userInfo" resultType="userInfo">
+		SELECT id, pw
+		FROM userinfo
+		WHERE id = #{id} AND pw = #{pw}
+	</select>
+	
+	<insert id="insert">
+	
+	</insert>
+	
+	<resultMap type="phone" id="phoneListRM">
+		<id property="num" column="num"/>
+		<result property="model" column="model"/>
+		<result property="price" column="price"/>
+		<association property="company" javaType="company">
+			<id property="vcode" column="vcode"/>
+			<id property="vrendor" column="vrendor"/>
+		</association>
+	</resultMap>
+	
+	<select id="getPhones" parameterType="phone">
+		
+	</select>
+	
+	<delete id="">
+	</delete>
+
+	
+</mapper>
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

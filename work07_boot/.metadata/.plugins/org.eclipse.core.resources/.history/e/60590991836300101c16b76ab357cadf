@@ -1,0 +1,86 @@
+package com.service.spring.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import com.service.spring.domain.Phone;
+import com.service.spring.service.PhoneService;
+
+//presentation layer
+//결과페이즈를 응답하는 컨트롤러...SSR...jsp사용...검색용이...SEO search engine optimizer
+@Controller
+public class PhoneController {
+
+	@Autowired
+	private PhoneService service;
+
+	// 인트로 페이지로부터 요청
+	@GetMapping("/") // http/localhost:9000/
+	public String home() {
+		return "redirect:/index.jsp";
+	}
+
+	@GetMapping("regPhone")
+	public String getRegPhone(Model model) {
+		model.addAttribute("title", "핸드폰 관리 - 핸드폰 등록");
+		return "PhoneReg";
+	}
+
+	@PostMapping("savePhone")
+	public String doRegPhone(String vcode, Phone phone, Model model) {
+		try {
+			// vcode를 받아서 Company 객체를 생성 후 phone에 주입
+			Company company = new Company();
+			company.setVcode(vcode);
+			phone.setCompany(company);
+
+			service.insert(phone);
+
+			model.addAttribute("title", "핸드폰 관리 - 핸드폰 등록 완료");
+			return "Result";
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("title", "핸드폰 관리 - 핸드폰 등록 에러");
+			return "Error";
+		}
+	}
+
+	@GetMapping("searchPhone")
+	public String doList(Model model) {
+		try {
+			List<Phone> phones = service.select();
+			model.addAttribute("phones", phones);
+			model.addAttribute("title", "핸드폰 관리 - 핸드폰 리스트 출력 완료");
+			return "PhoneList";
+		} catch (Exception e) {
+			System.out.println(e);
+			model.addAttribute("title", "핸드폰 관리 - 핸드폰 리스트 출력 에러");
+			model.addAttribute("message", "에러 내용 - 핸드폰 목록 조회중 에러");
+			return "Error";
+		}
+	}
+	
+	@GetMapping("detail")
+	public String doDetail(Phone phone, Model model) {
+		try {
+			Phone selected = service.select(phone);
+			model.addAttribute("phone", selected);
+			model.addAttribute("title", "핸드폰 관리 - 상세 조회 완료");
+			return "PhoneView";
+		} catch(Exception e) {
+			model.addAttribute("title", "핸드폰 관리 - 상세 조회 실패");
+			return "Error";
+		}
+	}
+
+	@GetMapping("login")
+	public String getLogin() {
+		return "Login";
+	}
+
+}

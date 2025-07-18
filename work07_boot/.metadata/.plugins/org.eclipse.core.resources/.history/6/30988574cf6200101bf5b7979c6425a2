@@ -1,0 +1,51 @@
+package com.service.spring.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.service.spring.dao.BoardDAO;
+import com.service.spring.domain.Board;
+
+@Service
+public class BoardService {
+
+	@Autowired
+	private BoardDAO boardDAO;
+	
+	public int write(Board vo) {
+		System.out.println("BoardService...write");
+		return boardDAO.write(vo);
+	}
+	
+	public String selectByNoForDate(int no) {
+		System.out.println("BoardService...selectByNoForDate");
+		return boardDAO.selectByNoForDate(no);
+	}
+	
+	public List<Board> getBoardList() {
+		System.out.println("BoardService...getBoardList");
+		return boardDAO.getBoardList();
+	}
+	
+	public Board showContent(int no) {
+		System.out.println("BoardService...showContent");
+		return boardDAO.showContent(no);
+	}
+	
+	public int deleteBoard(int no) {
+		System.out.println("BoardService...deleteBoard");
+		return boardDAO.deleteBoard(no);
+	}
+	
+	public int updateBoard(Board vo) {
+		System.out.println("BoardService...updateBoard");
+		return boardDAO.updateBoard(vo);
+	}
+	
+	public int updateCount(int no) {
+		System.out.println("BoardService...updateCount");
+		return boardDAO.updateCount(no);
+	}
+}

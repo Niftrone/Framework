@@ -1,0 +1,78 @@
+package com.service.spring.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.graphql.GraphQlProperties.Http;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import com.service.spring.domain.Board;
+import com.service.spring.domain.Member;
+import com.service.spring.service.BoardService;
+
+import jakarta.servlet.http.HttpSession;
+
+//Presentation Layer Component// 결과로 데이터를 담고있는 jsp page를 리턴한다
+@Controller 
+public class BoardController {
+
+	@Autowired
+	private BoardService boardService;
+
+	@PostMapping("/write")
+	public String write(Board bvo,Model model, HttpSession session) {
+		Member mvo = (Member) session.getAttribute("mvo");
+		String path = "board/show_content";
+		if(mvo == null) return "redirect:index.jsp";
+		try {
+			bvo.setMember(mvo);
+			model.addAttribute("bvo", bvo);
+			boardService.write(bvo);
+		}catch(Exception e){
+			System.out.println(e);
+			return "Error";
+		}
+		return path;
+	}
+	
+	@GetMapping("/list")
+	public String getBoardList(Model model) {
+		try {
+			List<Board> list = boardService.getBoardList();
+			model.addAttribute("boardList", list);
+		}catch(Exception e){
+			model.addAttribute("message", "게시글 검색중 에러 발생");
+		}
+		
+		return "board/list";
+	}
+	
+	@GetMapping("/showContent")
+	public String showContent(Integer no, Model model, HttpSession session) {
+		System.out.println(no);
+		try {
+			Member mvo = (Member) session.getAttribute("mvo");
+			Board sel = boardService.showContent(no);
+			boardService.updateCount();
+			sel.setMember(mvo);
+			model.addAttribute("bvo", sel);
+		}catch(Exception e){
+			System.out.println(e);
+		}
+
+		return "board/show_content";
+	}
+	
+	@GetMapping("/delete")
+	public String doDelte(int no, Model model) {
+		try {
+			boardService.deleteBoard(no);
+		}catch(Exception e) {
+			
+		}
+	}
+	
+}

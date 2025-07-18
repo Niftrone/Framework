@@ -1,0 +1,9 @@
+package com.service.spring;
+
+public class MyBatisUnitTest {
+
+	public static void main(String[] args) {
+		
+	}
+
+}

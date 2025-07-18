@@ -1,0 +1,14 @@
+package com.service.spring;
+
+import java.io.IOException;
+import java.io.Reader;
+
+import org.apache.ibatis.io.Resources;
+
+public class MyBatisUnitTest {
+
+	public static void main(String[] args) throws IOException {
+		Reader r = Resources.getResourceAsReader("config/SqlMapConfig.xml");
+	}
+
+}

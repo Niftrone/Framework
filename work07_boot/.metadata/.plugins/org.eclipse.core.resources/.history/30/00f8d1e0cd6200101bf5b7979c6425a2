@@ -1,0 +1,37 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<script>
+
+</script>
+</head>
+<body>
+	<table>
+		<tr>
+			<td><b>글번호 : ${bvo.no} | 타이틀 : ${bvo.title}</b>
+			<hr style="color:gray; border-style: dotted; margin: 0">
+			</td>
+		</tr>
+		<tr>
+			<td>
+				작성자 : ${bvo.name} |
+				작성일시 : ${bvo.writeDate }
+			</td>
+		</tr>
+	</table>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

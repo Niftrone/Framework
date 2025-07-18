@@ -1,0 +1,40 @@
+package com.service.spring.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.service.spring.dao.PhoneDAO;
+import com.service.spring.domain.Phone;
+import com.service.spring.domain.UserInfo;
+
+@Service
+public class PhoneService {
+	@Autowired
+	private PhoneDAO phoneDAO;
+	
+	public int insert(Phone phone) {
+		return phoneDAO.insert(phone);
+	}
+
+	public int delete(List<String> list) {
+		return phoneDAO.delete(list);
+	}
+
+	public int update(Phone phone) {
+		return sqlSession.update(NS+"update", phone);
+	}
+
+	public Phone select(Phone phone) {
+		return sqlSession.selectOne(NS+"select", phone);
+	}
+
+	public List<Phone> select() {
+		return sqlSession.selectList(NS+"select", null);
+	}
+
+	public UserInfo select(UserInfo user) {
+		return sqlSession.selectOne(NS+"selectUser", user);
+	
+}

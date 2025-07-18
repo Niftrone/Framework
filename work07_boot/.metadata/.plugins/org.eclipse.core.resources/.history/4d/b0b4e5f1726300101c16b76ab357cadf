@@ -1,0 +1,13 @@
+package com.service.spring;
+
+import java.io.Reader;
+
+import org.apache.ibatis.io.Resources;
+
+public class MyBatisUnitTest {
+
+	public static void main(String[] args) {
+		Reader r = Resources.getResourceAsReader("config/SqlMapConfig.xml");
+	}
+
+}

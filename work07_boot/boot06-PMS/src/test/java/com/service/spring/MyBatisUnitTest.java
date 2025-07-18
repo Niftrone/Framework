@@ -1,0 +1,83 @@
+package com.service.spring;
+
+import java.io.IOException;
+import java.io.Reader;
+import java.util.Arrays;
+import java.util.List;
+
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
+import com.service.spring.domain.Company;
+import com.service.spring.domain.Phone;
+import com.service.spring.domain.UserInfo;
+
+public class MyBatisUnitTest {
+
+	public static void main(String[] args) throws IOException {
+		Reader r = Resources.getResourceAsReader("config/SqlMapConfig.xml");
+		
+		SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(r);
+		
+		SqlSession session = factory.openSession();
+		
+		try {
+			// 1. INSERT 테스트
+			Company company = new Company();
+			company.setVcode("10");
+			Phone phone = new Phone();
+			phone.setNum("P100");
+			phone.setModel("Galaxy S99");
+			phone.setPrice(1500000);
+			phone.setVcode(company.getVcode());
+			phone.setCompany(company);
+			
+			int inserted = session.insert("ns.sql.PhoneMapper.insert", phone);
+			System.out.println("[INSERT] 결과: " + inserted);
+
+			// 2. SELECT ALL 테스트
+			List<Phone> list = session.selectList("ns.sql.PhoneMapper.select", new Phone());
+			System.out.println("[SELECT ALL] 결과:");
+			for (Phone p : list) {
+				System.out.println(p.getNum() + " / " + p.getModel() + " / " + p.getPrice() + " / " + p.getCompany().getVcode() + " / " + p.getCompany().getVendor());
+			}
+
+			// 3. SELECT ONE 테스트
+			Phone condition = new Phone();
+			condition.setNum("P100");
+			Phone result = session.selectOne("ns.sql.PhoneMapper.select", condition);
+			System.out.println("[SELECT ONE] 결과: " + result.getModel() + result.getCompany().getVendor());
+
+			// 4. UPDATE 테스트
+			result.setModel("Galaxy S99 Ultra");
+			result.setPrice(1600000);
+			int updated = session.update("ns.sql.PhoneMapper.update", result);
+			System.out.println("[UPDATE] 결과: " + updated);
+
+			// 5. DELETE (foreach) 테스트
+			List<String> numsToDelete = Arrays.asList("P100");
+			int deleted = session.delete("ns.sql.PhoneMapper.delete", numsToDelete);
+			System.out.println("[DELETE] 결과: " + deleted);
+
+			// 6. 로그인 SELECT 테스트
+			UserInfo user = new UserInfo();
+			user.setId("admin");
+			user.setPw("admin");
+			UserInfo loginResult = session.selectOne("ns.sql.PhoneMapper.selectUser", user);
+			if (loginResult != null) {
+				System.out.println("[LOGIN] 성공: " + loginResult.getId());
+			} else {
+				System.out.println("[LOGIN] 실패");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+	}
+
+}
